@@ -5,20 +5,24 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "*" ]
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ '1.22' ]
+        os: [ 'ubuntu-latest', 'ubuntu-18.04' ]
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
 
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.22'
+        go-version: ${{matrix.go-version}}
 
     - name: Start DB
       run: docker compose up -d postgres
