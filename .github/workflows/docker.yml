@@ -20,7 +20,5 @@ jobs:
         with:
           # Server address of Docker registry. If not set then will default to Docker Hub
           registry: ${{vars.DOCKER_HUB_REGISTRY_NAME}}
-          # Username used to log against the Docker registry
-          username: ${{vars.DOCKER_HUB_USERNAME}}
           # Password or personal access token used to log against the Docker registry
           password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
