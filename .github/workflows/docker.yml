@@ -10,6 +10,10 @@ jobs:
   build-docker:
     runs-on: "ubuntu-latest"
     steps:
+      - name: Set SHA
+        id: sha
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v4
 
       - name: Setup Docker Build
@@ -35,4 +39,4 @@ jobs:
           # Push is a shorthand for --output=type=registry
           push: true
           # List of tags
-          tags: ${{vars.DOCKER_HUB_USERNAME}}/alura-ci-go:${{github.ref_name}}
+          tags: ${{vars.DOCKER_HUB_USERNAME}}/alura-ci-go:${{steps.sha.outputs.sha_short}}
