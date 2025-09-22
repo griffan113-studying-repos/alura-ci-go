@@ -44,3 +44,8 @@ jobs:
         with:
           name: alura-ci-go-${{ matrix.os }}
           path: main
+
+  docker:
+    needs: ci
+    uses: ./.github/workflows/docker.yml
+    secrets: inherit
